@@ -1,0 +1,86 @@
+﻿@*@model IEnumerable<WebApplication2.Entities.Employee>
+
+<!DOCTYPE html>
+
+<html>
+
+
+    <head>
+
+    </head>
+
+
+    <body>
+        <h1>We have @Model.Count() workers</h1>
+        @foreach (var item in Model)
+    {
+        <div>
+            <h1>ID : @item.Id</h1>
+            <h1>Firstname : @item.Firstname</h1>
+            <h1>Lastname : @item.Lastname</h1>
+        </div>
+    }
+
+
+    </body>
+
+</html>*@
+
+
+
+
+@model WebApplication2.Models.EmployeViewModel
+
+<!DOCTYPE html>
+
+<html>
+
+
+<head>
+
+</head>
+
+
+<body>
+    <h1>Current Date @DateTime.Now.ToLongDateString()</h1>
+    <hr/>
+    <h1>We have @Model.Employees.Count() workers</h1>
+    @foreach (var item in Model.Employees)
+    {
+        var color = "";
+        @if (item.Point >= 70)
+        {
+            color = "springgreen";
+        }
+        else
+        {
+            color = "orangered";
+        }
+        <div style="width:50%;margin:auto;border:2px solid @color;">
+            <h1>ID : @item.Id</h1>
+            <h1>Firstname : @item.Firstname</h1>
+            <h1>Lastname : @item.Lastname</h1>
+            <h1>Score : <b> @item.Point </b></h1>
+        </div>
+    }
+
+    <h1>We have @Model.Cities.Count() cities</h1>
+    
+    @foreach (var item in Model.Cities)
+    {
+        <h2 style="color:springgreen">@item</h2>
+    }
+
+   @* @try
+    {
+        throw new Exception("Hey i am error");
+    }
+    catch (Exception ex)
+    {
+        <h1 style="color:red;"><b>@ex.Message</b></h1>
+    }*@
+
+
+</body>
+
+</html>
