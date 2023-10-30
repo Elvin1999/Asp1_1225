@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApplication2.Entities;
@@ -71,6 +72,59 @@ namespace WebApplication2.Controllers
             return View(viewModel);
         }
 
+        public IActionResult GetEmployee(int id)
+        {
+            List<Employee> employees = new List<Employee>
+            {
+                    new Employee
+                    {
+                        Id=1,
+                         CityId=1,
+                          Firstname="Eynal",
+                           Lastname="Baxshiyev",
+                            Point=88
+                    },
+                    new Employee
+                    {
+                        Id=2,
+                         CityId=2,
+                          Firstname="Nigar",
+                          Lastname="Mustafazade",
+                          Point=56
+                    },
+                    new Employee
+                    {
+                        Id=3,
+                         CityId=3,
+                          Firstname="Shireli",
+                           Lastname="Nuriyev",
+                            Point=99
+                    },
+                    new Employee
+                    {
+                        Id=4,
+                         CityId=4,
+                          Firstname="Resul",
+                           Lastname="Sebsiyev",
+                            Point=66
+                    }
+            };
+
+            var item = employees.SingleOrDefault(e => e.Id == id);
+            if (item != null)
+            {
+                var vm = new EmployeeDetailViewModel
+                {
+                    Id= item.Id,
+                    Name=item.Firstname,
+                    Surname=item.Lastname,
+                    Point=item.Point
+                };
+                return View("EmployeeDetail",vm);
+            }
+            return RedirectToAction("Employees");
+        }
+
         public IActionResult Index4()
         {
             return Ok();
@@ -103,6 +157,7 @@ namespace WebApplication2.Controllers
             return RedirectToRoute(routeValue);
         }
 
+        [HttpGet]
         public JsonResult GetJson()
         {
             List<Employee> employees = new List<Employee>
@@ -142,6 +197,50 @@ namespace WebApplication2.Controllers
             };
 
             return Json(employees);
+        }
+
+        [HttpGet,ActionName("ByParams")]
+        public JsonResult GetJson(string name,int point=0)
+        {
+            List<Employee> employees = new List<Employee>
+            {
+                    new Employee
+                    {
+                        Id=1,
+                         CityId=1,
+                          Firstname="Eynal",
+                           Lastname="Baxshiyev",
+                            Point=88
+                    },
+                    new Employee
+                    {
+                        Id=2,
+                         CityId=2,
+                          Firstname="Nigar",
+                          Lastname="Mustafazade",
+                          Point=56
+                    },
+                    new Employee
+                    {
+                        Id=3,
+                         CityId=3,
+                          Firstname="Shireli",
+                           Lastname="Nuriyev",
+                            Point=99
+                    },
+                    new Employee
+                    {
+                        Id=4,
+                         CityId=4,
+                          Firstname="Resul",
+                           Lastname="Sebsiyev",
+                            Point=66
+                    }
+            };
+            var result = employees.Where(e => e.Firstname.ToLower().Contains(name.ToLower())
+            || e.Lastname.ToLower().Contains(name))
+                .Where(s=>s.Point>=point);
+            return Json(result);
         }
     }
 }

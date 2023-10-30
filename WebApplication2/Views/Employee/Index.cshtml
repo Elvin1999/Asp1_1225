@@ -1,0 +1,15 @@
+﻿@model EmployeeListViewModel
+
+@foreach (var item in Model.Employees)
+{
+    <section style="width:40%;margin:auto;">
+        <h2>Name : @item.Firstname</h2>
+        <h2>Surname : @item.Lastname</h2>
+        <h2>Point : @item.Point</h2>
+        <a asp-action="Update" asp-controller="Employee" asp-route-myid="@item.Id">Update</a>
+
+        <hr/>
+    </section>
+}
+<a href="employee/add">Add new Employee</a>
+<hr />
