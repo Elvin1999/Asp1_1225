@@ -27,21 +27,9 @@
 </html>*@
 
 
-
-
 @model EmployeViewModel
 
-<!DOCTYPE html>
 
-<html>
-
-
-<head>
-
-</head>
-
-
-<body>
     <h1>Current Date @DateTime.Now.ToLongDateString()</h1>
     <hr/>
     <h1>We have @Model.Employees.Count() workers</h1>
@@ -79,8 +67,3 @@
     {
         <h1 style="color:red;"><b>@ex.Message</b></h1>
     }*@
-
-
-</body>
-
-</html>

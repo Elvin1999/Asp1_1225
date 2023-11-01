@@ -1,6 +1,6 @@
 ﻿@model EmployeeListViewModel
 
-@foreach (var item in Model.Employees)
+@*@foreach (var item in Model.Employees)
 {
     <section style="width:40%;margin:auto;">
         <h2>Name : @item.Firstname</h2>
@@ -10,6 +10,9 @@
 
         <hr/>
     </section>
-}
+}*@
+
+<employee-list count="4" sort="z-a"></employee-list>
+
 <a href="employee/add">Add new Employee</a>
 <hr />

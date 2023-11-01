@@ -14,12 +14,12 @@ namespace WebApplication2.Controllers
 {
     public class HomeController : Controller
     {
-        public string Index()
-        {
-            return "Hello from Index Action";
-        }
+        //public string Index()
+        //{
+        //    return "Hello from Index Action";
+        //}
 
-        public IActionResult Index2()
+        public IActionResult Index()
         {
             return View();
         }
