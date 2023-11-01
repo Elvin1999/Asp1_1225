@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,6 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication2.Data;
+using WebApplication2.Repositories;
+using WebApplication2.Services;
 
 namespace WebApplication2
 {
@@ -24,6 +28,19 @@ namespace WebApplication2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            var connection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=StudentDB;Integrated Security=True;";
+            services.AddDbContext<StudentDbContext>(opt =>
+            {
+                opt.UseSqlServer(connection);
+            });
+
+            services.AddScoped<IStudentRepository, EFStudentRepository>();
+            services.AddScoped<IStudentService, StudentService>();
+
+            //services.AddSingleton<ICalculator, SimpleCalculator>();
+            //  services.AddScoped<ICalculator, SimpleCalculator>();
+            services.AddTransient<ICalculator, SimpleCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

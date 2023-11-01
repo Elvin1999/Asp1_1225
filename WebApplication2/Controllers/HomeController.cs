@@ -9,11 +9,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApplication2.Entities;
 using WebApplication2.Models;
+using WebApplication2.Services;
 
 namespace WebApplication2.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ICalculator _calculator;
+        private readonly ICalculator _calculator2;
+
+        public HomeController(ICalculator calculator,ICalculator calculator2)
+        {
+            _calculator = calculator;
+            _calculator2 = calculator2;
+        }
+
         //public string Index()
         //{
         //    return "Hello from Index Action";
@@ -21,6 +31,8 @@ namespace WebApplication2.Controllers
 
         public IActionResult Index()
         {
+            var data = _calculator.Calculate(1);
+            var data2 = _calculator2.Calculate(1);
             return View();
         }
 
